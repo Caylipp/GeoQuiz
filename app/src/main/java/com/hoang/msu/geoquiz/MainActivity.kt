@@ -3,7 +3,6 @@ package com.hoang.msu.geoquiz
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import com.google.android.material.snackbar.Snackbar
 import com.hoang.msu.geoquiz.databinding.ActivityMainBinding
 
