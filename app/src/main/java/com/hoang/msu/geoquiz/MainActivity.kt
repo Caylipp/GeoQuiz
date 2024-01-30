@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         trueButton = findViewById(R.id.true_button)
         falseButton = findViewById(R.id.false_button)
 /*
-        trueButton.setOnClickListener{view : View ->
+        trueButton.setOnClickListener{
             Toast.makeText(
                 this,
                 R.string.true_button,
@@ -28,14 +28,15 @@ class MainActivity : AppCompatActivity() {
                 .show()
         }
 
-        falseButton.setOnClickListener{view : View ->
+        falseButton.setOnClickListener{
             Toast.makeText(
                 this,
                 R.string.false_button,
                 Toast.LENGTH_SHORT)
                 .show()
         }
- */
+*/
+///*
         trueButton.setOnClickListener{
             val snackbar = Snackbar.make(
                 it,
@@ -55,6 +56,6 @@ class MainActivity : AppCompatActivity() {
             snackbar.setBackgroundTint(Color.RED)
             snackbar.show()
         }
-
+//*/
     }
 }
