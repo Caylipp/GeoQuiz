@@ -22,6 +22,8 @@ class MainActivity : AppCompatActivity() {
 
     private var currentIndex = 0
 
+    private var score = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "onCreate (Bundle?) called?")
@@ -44,10 +46,6 @@ class MainActivity : AppCompatActivity() {
             nextQuestion()
         }
 
-        binding.previousButton.setOnClickListener{
-            currentIndex = if (currentIndex - 1 < 0) questionBank.size - 1 else currentIndex - 1
-            updateQuestion()
-        }
 
         updateQuestion() //necessary??
 
@@ -65,6 +63,7 @@ class MainActivity : AppCompatActivity() {
     private fun checkAnswer(userAnswer: Boolean) {
         val correctAnswer = questionBank[currentIndex].answer
         val messageResId = if (userAnswer == correctAnswer) {
+            score++
             R.string.correct_toast
         } else {
             R.string.incorrect_toast

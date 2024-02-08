@@ -40,13 +40,6 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/previous_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/previous_button"
-            android:drawableStart="@drawable/baseline_arrow_left_24"/>
-
-        <Button
             android:id="@+id/next_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
