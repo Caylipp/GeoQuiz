@@ -57,10 +57,15 @@ class MainActivity : AppCompatActivity() {
         enableInputBtn()
     }
     private fun nextQuestion() {
-        currentIndex = (currentIndex + 1) % questionBank.size
+        currentIndex++
+        if(currentIndex == questionBank.size){
+            showScore()
+        }
+        currentIndex %= questionBank.size
         updateQuestion()
     }
     private fun checkAnswer(userAnswer: Boolean) {
+        disableInputBtn()
         val correctAnswer = questionBank[currentIndex].answer
         val messageResId = if (userAnswer == correctAnswer) {
             score++
@@ -70,7 +75,13 @@ class MainActivity : AppCompatActivity() {
         }
         Toast.makeText(this, messageResId, Toast.LENGTH_SHORT)
             .show()
-        disableInputBtn()
+
+    }
+    private fun showScore(){
+        val scorePercent = (score.toFloat() / questionBank.size.toFloat()) * 100
+        val endScore = String.format("%.1f%%", scorePercent)
+        Toast.makeText(this, endScore, Toast.LENGTH_SHORT)
+            .show()
     }
 
     override fun onStart() {
