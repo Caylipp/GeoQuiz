@@ -56,6 +56,7 @@ class MainActivity : AppCompatActivity() {
     private fun updateQuestion() {
         val questionTextResId = questionBank[currentIndex].textResId
         binding.questionTextview.setText(questionTextResId)
+        enableInputBtn()
     }
     private fun nextQuestion() {
         currentIndex = (currentIndex + 1) % questionBank.size
@@ -70,6 +71,7 @@ class MainActivity : AppCompatActivity() {
         }
         Toast.makeText(this, messageResId, Toast.LENGTH_SHORT)
             .show()
+        disableInputBtn()
     }
 
     override fun onStart() {
@@ -91,5 +93,13 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         Log.d(TAG, "onDestroy() called")
+    }
+    private fun enableInputBtn(){
+        binding.falseButton.isEnabled = true
+        binding.trueButton.isEnabled = true
+    }
+    private fun disableInputBtn(){
+        binding.falseButton.isEnabled = false
+        binding.trueButton.isEnabled = false
     }
 }
