@@ -3,9 +3,12 @@ package com.hoang.msu.geoquiz
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import com.hoang.msu.geoquiz.databinding.ActivityMainBinding
 
+private const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
@@ -23,27 +26,16 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d(TAG, "onCreate (Bundle?) called?")
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.trueButton.setOnClickListener{
-            val snackbar = Snackbar.make(
-                it,
-                "Correct",
-                Snackbar.LENGTH_LONG
-            )
-            snackbar.show()
+            checkAnswer(true)
         }
 
         binding.falseButton.setOnClickListener{
-            val snackbar = Snackbar.make(
-                it,
-                "Incorrect",
-                Snackbar.LENGTH_LONG
-            )
-            snackbar.setTextColor(Color.BLACK)
-            snackbar.setBackgroundTint(Color.RED)
-            snackbar.show()
+            checkAnswer(false)
         }
 
         binding.nextButton.setOnClickListener{
@@ -70,5 +62,15 @@ class MainActivity : AppCompatActivity() {
     private fun nextQuestion() {
         currentIndex = (currentIndex + 1) % questionBank.size
         updateQuestion()
+    }
+    private fun checkAnswer(userAnswer: Boolean) {
+        val correctAnswer = questionBank[currentIndex].answer
+        val messageResId = if (userAnswer == correctAnswer) {
+            R.string.correct_toast
+        } else {
+            R.string.incorrect_toast
+        }
+        Toast.makeText(this, messageResId, Toast.LENGTH_SHORT)
+            .show()
     }
 }
