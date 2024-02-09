@@ -82,6 +82,7 @@ class MainActivity : AppCompatActivity() {
         val endScore = String.format("%.1f%%", scorePercent)
         Toast.makeText(this, endScore, Toast.LENGTH_SHORT)
             .show()
+        score = 0
     }
 
     override fun onStart() {
