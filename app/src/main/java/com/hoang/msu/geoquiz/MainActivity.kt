@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.viewModels
 import com.hoang.msu.geoquiz.databinding.ActivityMainBinding
 
 private const val TAG = "MainActivity"
@@ -24,11 +25,14 @@ class MainActivity : AppCompatActivity() {
 
     private var score = 0
 
+    private val quizViewModel : QuizViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "onCreate (Bundle?) called?")
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        Log.d(TAG, "Got a QuizViewModel: $quizViewModel")
 
         binding.trueButton.setOnClickListener{
             checkAnswer(true)
