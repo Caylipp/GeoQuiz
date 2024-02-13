@@ -12,17 +12,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
 
-
-    private val questionBank = listOf(
-        Question(R.string.question_australia, true),
-        Question(R.string.question_oceans, true),
-        Question(R.string.question_mideast, false),
-        Question(R.string.question_africa, false),
-        Question(R.string.question_americas, true),
-        Question(R.string.question_asia, true))
-
-    private var currentIndex = 0
-
     private var score = 0
 
     private val quizViewModel : QuizViewModel by viewModels()
@@ -51,26 +40,25 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        updateQuestion() //necessary??
+        updateQuestion()
 
 
     }
     private fun updateQuestion() {
-        val questionTextResId = questionBank[currentIndex].textResId
+        val questionTextResId = quizViewModel.currentQuestionText
         binding.questionTextview.setText(questionTextResId)
         enableInputBtn()
     }
     private fun nextQuestion() {
-        currentIndex++
-        if(currentIndex == questionBank.size){
+        if((quizViewModel.currentQuestionIndex+1) == quizViewModel.currentQuestionSize){
             showScore()
         }
-        currentIndex %= questionBank.size
+        quizViewModel.moveToNext()
         updateQuestion()
     }
     private fun checkAnswer(userAnswer: Boolean) {
         disableInputBtn()
-        val correctAnswer = questionBank[currentIndex].answer
+        val correctAnswer = quizViewModel.currentQuestionAnswer
         val messageResId = if (userAnswer == correctAnswer) {
             score++
             R.string.correct_toast
@@ -82,7 +70,7 @@ class MainActivity : AppCompatActivity() {
 
     }
     private fun showScore(){
-        val scorePercent = (score.toFloat() / questionBank.size.toFloat()) * 100
+        val scorePercent = (score.toFloat() / quizViewModel.currentQuestionSize.toFloat()) * 100
         val endScore = String.format("%.1f%%", scorePercent)
         Toast.makeText(this, endScore, Toast.LENGTH_SHORT)
             .show()
