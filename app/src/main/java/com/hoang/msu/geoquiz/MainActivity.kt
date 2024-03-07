@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
     private var score = 0
     private val quizViewModel : QuizViewModel by viewModels()
+    private val CheatViewModel : CheatViewModel by viewModels()
 
     private val cheatLauncher = registerForActivityResult(
 
@@ -45,16 +46,15 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.cheatButton.setOnClickListener(){
-            //val intent = Intent(this, CheatActivity::class.java)
             val answerIsTrue = quizViewModel.currentQuestionAnswer
             val intent = CheatActivity.newIntent(this@MainActivity, answerIsTrue)
-            //startActivity(intent)
             cheatLauncher.launch(intent)
 
         }
 
         binding.nextButton.setOnClickListener{
             nextQuestion()
+            quizViewModel.isCheater = false
         }
 
         binding.questionTextview.setOnClickListener{
